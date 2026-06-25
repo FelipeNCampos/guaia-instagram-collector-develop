@@ -1,0 +1,34 @@
+@startuml C3-Componentes-Collector
+' C3 - Componentes dentro do container CLI / Runner (collector.py)
+
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultTextAlignment left
+skinparam wrapWidth 220
+skinparam maxMessageSize 220
+
+package "CLI / Runner (collector.py)" #LightSkyBlue {
+  component "CollectorRunner\nCoordena execução de coleta" as CollectorRunner
+  component "GoogleSearchClient\nBusca URLs de Instagram no Google" as GoogleSearchClient
+  component "InstagramPageParser\nExtrai metadados, mídias e comentários" as InstagramPageParser
+  component "MediaExtractor\nConverte DOM em objetos de mídia" as MediaExtractor
+  component "MediaClassifier\nClassifica IMAGE / VIDEO / CAROUSEL" as MediaClassifier
+  component "MediaArchiver (Facade)\nDecide local vs Drive (APP_ENV)" as MediaArchiverComp
+  component "PhotoArchiver\nBaixa/armazenar fotos" as PhotoArchiver
+  component "VideoArchiver\nBaixa/armazenar vídeos" as VideoArchiver
+  component "Database (db.py)\ncreate_run / upserts" as DBRepo
+  component "EnvironmentConfig\nLê .env e expõe APP_ENV, banco, 2Captcha, Drive" as EnvConfigComp
+}
+
+CollectorRunner --> GoogleSearchClient : busca URLs\nde posts / perfis
+CollectorRunner --> InstagramPageParser : obtém metadados\ne DOM
+CollectorRunner --> MediaExtractor : extrai lista\nde mídias
+CollectorRunner --> DBRepo : persiste posts,\nexecuções e mídias
+CollectorRunner --> MediaArchiverComp : solicita download\ne armazenamento
+CollectorRunner --> EnvConfigComp : lê configs\nde ambiente
+
+MediaExtractor --> MediaClassifier : classifica tipo\nde cada mídia
+MediaArchiverComp --> PhotoArchiver : encaminha fotos\n(IMAGE)
+MediaArchiverComp --> VideoArchiver : encaminha vídeos\n(VIDEO)
+
+@enduml

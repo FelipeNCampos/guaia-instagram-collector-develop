@@ -1,0 +1,36 @@
+@startuml C1-Contexto-GuaIA-Instagram-Collector
+' C1 - Diagrama de Contexto (C4 simplificado)
+
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultTextAlignment left
+skinparam wrapWidth 220
+skinparam maxMessageSize 220
+
+' Pessoas
+actor "Analista de Dados / IA" as Analyst
+actor "Operador GuaIA" as Operator
+
+' Sistema principal
+rectangle "GuaIA Instagram Collector\n(Sistema de Coleta)" as Collector #LightSkyBlue
+
+' Sistemas externos
+rectangle "Instagram\n(Sistema Externo)" as Instagram #LightGray
+rectangle "Google Search\n(Sistema Externo)" as Google #LightGray
+rectangle "2Captcha\n(Sistema Externo)" as TwoCaptcha #LightGray
+database "PostgreSQL - Instagram DB\n(Banco de Dados)" as PG #LightGray
+cloud "Google Drive\n(Armazenamento de Mídia)" as Drive #LightGray
+rectangle "API GuaIA\n(Orquestrador)" as GuaIA_API #LightGray
+
+' Relações principais
+Analyst --> Collector : consulta dados\ncoletados
+Operator --> Collector : configura coletas\ne monitora
+
+Collector --> Instagram : raspa páginas\ne mídias
+Collector --> Google : pesquisa URLs\nde conteúdo
+Collector --> TwoCaptcha : resolve CAPTCHAs
+Collector --> PG : lê/escreve posts,\nexecuções, comentários, mídias
+Collector --> Drive : upload de fotos\ne vídeos (produção)
+GuaIA_API --> Collector : envia consultas\nde coleta / recebe status
+
+@enduml

@@ -1,0 +1,51 @@
+@startuml C2-Containers-GuaIA-Instagram-Collector
+' C2 - Diagrama de Containers (C4 simplificado)
+
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultTextAlignment left
+skinparam wrapWidth 220
+skinparam maxMessageSize 220
+
+actor "Analista de Dados / IA" as Analyst
+actor "Operador GuaIA" as Operator
+
+node "GuaIA Instagram Collector\n(Sistema)" as SystemBoundary #LightSkyBlue
+
+component "CLI / Runner\n(Python)" as CLI
+component "Instagram API Feeder\n(Python)" as Feeder
+component "Headless Browser\n(Chrome)" as Browser
+component "Camada de Persistência\n(Python / asyncpg)" as DBLayer
+component "Media Archiver\n(Python)" as MediaArchiver
+component "Google Drive Uploader\n(Python)" as DriveUploader
+component "EnvironmentConfig\n(Python)" as EnvConfig
+
+database "PostgreSQL - Instagram DB" as PG #LightGray
+cloud "Google Drive\n(Armazenamento de mídia)" as Drive #LightGray
+cloud "API GuaIA\n(HTTP API)" as GuaIA_API #LightGray
+
+' Agrupamento visual (sem chaves)
+SystemBoundary -[hidden]- CLI
+SystemBoundary -[hidden]- Feeder
+SystemBoundary -[hidden]- Browser
+SystemBoundary -[hidden]- DBLayer
+SystemBoundary -[hidden]- MediaArchiver
+SystemBoundary -[hidden]- DriveUploader
+SystemBoundary -[hidden]- EnvConfig
+
+' Relações com pessoas
+Analyst --> CLI : executa coletas\ne análises
+Operator --> Feeder : gerencia coletas\nvia GuaIA
+
+' Relações internas
+CLI --> Browser : controla navegação\nGoogle / Instagram
+CLI --> DBLayer : grava e lê dados
+CLI --> MediaArchiver : solicita\narmazenamento de mídias
+CLI --> EnvConfig : lê APP_ENV,\nconfiguração e credenciais
+
+Feeder --> GuaIA_API : consulta tarefas\ne envia resultados
+DBLayer --> PG : conexão ao banco
+MediaArchiver --> DriveUploader : solicita upload\n(em produção)
+DriveUploader --> Drive : upload de fotos/vídeos
+
+@enduml
