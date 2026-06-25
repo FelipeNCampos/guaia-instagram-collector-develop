@@ -1,0 +1,26 @@
+# Web scraping (Selenium 4.10+ includes selenium-manager; no webdriver-manager needed)
+selenium>=4.20.0,<5
+
+# HTML parsing
+beautifulsoup4>=4.12.0
+lxml>=5.2.0
+
+# PostgreSQL (asyncpg, same as kwai_collector)
+asyncpg>=0.29.0
+
+# HTTP (pyGuaIA_API)
+requests>=2.31.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# YAML (pyGuaIA_API)
+pyyaml>=6.0
+
+# reCAPTCHA / hCaptcha (Google / Instagram) via 2Captcha
+2captcha-python>=1.2.0
+
+# Google Drive media archiving
+google-api-python-client>=2.172.0
+google-auth>=2.40.0
+google-auth-httplib2>=0.2.0

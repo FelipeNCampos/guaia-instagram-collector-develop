@@ -1,0 +1,39 @@
+# =============================================================================
+# Instagram Collector – .dockerignore
+# Exclui arquivos desnecessários da imagem Docker para builds mais rápidos.
+# =============================================================================
+
+# ── Artefatos de execução (montados como volumes) ─────────────────────────────
+data/
+output/
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# ── Git ───────────────────────────────────────────────────────────────────────
+.git/
+.gitignore
+
+# ── IDEs e SO ─────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# ── Documentação ─────────────────────────────────────────────────────────────
+README.md
+*.md

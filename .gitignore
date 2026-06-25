@@ -1,0 +1,55 @@
+# =============================================================================
+# Instagram Collector – .gitignore
+# =============================================================================
+
+# ── Segredos locais (nao versionar) ─────────────────────────────────────────
+www.google.com_cookies.txt
+google_cookies.txt
+
+.env
+.env.dev
+.env.hom
+.env.prod
+config.yml
+
+# ── Artefatos de execução ─────────────────────────────────────────────────────
+data/
+output/
+*.log
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+.env/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# ── IDEs ──────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── Docker ────────────────────────────────────────────────────────────────────
+# (manter Dockerfile e docker-compose versionados)
